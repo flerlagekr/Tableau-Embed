@@ -1,0 +1,87 @@
+<!-- 
+Example of an iFrame embed for a dashboard that uses multiple device layouts. 
+This will use CSS to choose different widths and heights based on the screen width.
+Device layouts will then automatically kick in and show the proper layout.
+When switching to a new layout, a page refresh is required.
+My experience is that phone and desktop layouts are most common, so this example only addresses those.
+Similar code could be added to address other layouts.
+
+WIDTH & HEIGHT
+Use the variables below to set the dimensions of the different layouts.
+Set width and height to the dimensions of the dashboard, in pixels.
+If including the toolbar (required in Public), add 27px to the height. If including tabs, add an additional 23px.
+To change the threshold for switching to the phone layout, change the pixels in the following: max-width: 600px
+
+URL
+To get the URL, select the share option then use the link shared there (this can be different than when you simply open a viz).
+Strip out everything after the first "?"
+For example, https://public.tableau.com/views/FleetwoodMacTheMembersandtheAlbums/FWM?:embed=y&:display_count=y&:toolbar=n&:origin=viz_share_link becomes...
+     https://public.tableau.com/views/FleetwoodMacTheMembersandtheAlbums/FWM
+To make responsive, we must add showVizHome=no. The above becomes https://public.tableau.com/views/FleetwoodMacTheMembersandtheAlbums/FWM?:showVizHome=no
+Then add additional parameters desired, though the defaults are often sufficient.
+Parameters are shown here: https://help.tableau.com/current/pro/desktop/en-us/embed_list.htm
+Parameters would be added to the end of the URL, starting with ?:. All subsequent parameters use &: For example, ?:embed=y&:tabs=no&:toolbar=no
+The resulting URL would be https://public.tableau.com/views/FleetwoodMacTheMembersandtheAlbums/FWM?:showVizHome=no&:tabs=no&:toolbar=no
+
+The left, right, and margin CSS settings will center the content.
+-->
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>iFrame with Device Layouts</title>
+   
+    <style>
+      :root {
+      /* Variables for controling the functionality. */
+      --desktopWidth:   1100px;    /* Width for desktop layout. */
+      --desktopHeight:  1627px;    /* Height for desktop layout. If including the toolbar (required in Public), add 27px to the height. If including tabs, add an additional 23px. */
+      --phoneWidth:   375px;     /* Width for the phone layout. Or change to 100% to force it to fit width on phone. */
+      --phoneHeight:  800px;     /* Height for the phone layout. */
+      }
+
+      /* Default sizing to use desktop. */
+      .iframe-container {
+        height: var(--desktopHeight);
+        width: var(--desktopWidth);
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+      }
+
+      .iframe-container iframe {
+        border: 0;
+        height: var(--desktopHeight);
+        width: var(--desktopWidth);
+        position: absolute;
+      }    
+    
+      /* If the screensize is below the max width, switch to the phone layout. */
+      @media only screen and (max-width: 600px) {
+        .iframe-container {
+          height: calc(var(--phoneHeight) + 77px);      /* Adjustments to ensure we don't get horizontal scrollbars when width set to 100%. */ 
+          width: calc(var(--phoneWidth) - 15px);        /* Adjustments to ensure we don't get horizontal scrollbars when width set to 100%. */
+          position: absolute;
+          left: 0;
+          right: 0;
+          margin: auto;
+        }
+
+        .iframe-container iframe {
+          border: 0;
+          height: calc(var(--phoneHeight) + 77px);      /* Adjustments to ensure we don't get horizontal scrollbars when width set to 100%. */
+          width: 100%;
+          position: absolute;
+        }
+      }  
+    </style>
+  </head>
+
+  <body>
+    <div class="iframe-container">
+      <iframe src="https://public.tableau.com/views/FleetwoodMacTheMembersandtheAlbums/FWM?:showVizHome=no"></iframe>
+    </div>
+  </body>
+</html>
+

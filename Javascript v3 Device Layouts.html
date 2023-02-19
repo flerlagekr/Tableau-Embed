@@ -1,0 +1,89 @@
+<!-- 
+Example of an Javascript (version 3) embed for a dashboard that uses multiple device layouts. 
+This will use Javascript to choose different widths and heights based on the screen width.
+Device layouts will then automatically kick in and show the proper layout.
+When switching to a new layout, a page refresh is required.
+My experience is that phone and desktop layouts are most common, so this example only addresses those.
+Similar code could be added to address other layouts.
+
+WIDTH & HEIGHT
+Use the variables below to set the dimensions of the different layouts.
+Set width and height to the dimensions of the dashboard, in pixels.
+If including the toolbar (required in Public), add 27px to the height. If including tabs, add an additional 23px.
+
+URL
+To get the URL, select the share option then use the link shared there (this can be different than when you simply open a viz).
+Strip out everything after the first "?"
+For example, https://public.tableau.com/views/FleetwoodMacTheMembersandtheAlbums/FWM?:embed_code_version=3&:embed=y&:loadOrderID=0&:toolbar=n&:display_count=n&:origin=viz_share_link becomes...
+             https://public.tableau.com/views/FleetwoodMacTheMembersandtheAlbums/FWM
+Parameters are shown here: https://help.tableau.com/current/api/embedding_api/en-us/docs/embedding_api_configure.html#table-of-properties-and-values-for-embedded-objects-and-components
+
+To center the embed, use "style='margin: 0 auto;" in the div.
+-->
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Javascript v3 with Device Layouts</title>
+  </head>
+
+  <body>  
+    <script type="module">
+      import { TableauViz } from "https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.js";
+       
+      // Variables for controling the functionality. 
+      const vizURL = "https://public.tableau.com/views/FleetwoodMacTheMembersandtheAlbums/FWM"
+      const widthThreshold   = 600;                  // Threshold at which we'll swtich from phont to desktop or vice versa.
+      const fitBrowserPhone  = true;                 // On phone layout, should the width expand to the browser or use a set width.
+      const desktopWidth     = '1100px';             // Width for desktop layout.
+      const desktopHeight    = '1627px';             // Height for desktop layout. Add 27px for padding.
+      const phoneWidth       = '375px';              // Width for phone layout (if we are not auto-fitting to the browser).
+      const phoneHeight      = '872px';              // Height for the phone layout.
+      const toolbarPosition  = "bottom"              // Position of the toolbar. Options are bottom, top, hidden. Hidden not available on Tableau Public
+      const hideTabs         = true;                 // Hide the tabs?
+
+      const viz = new TableauViz();
+
+      viz.src = vizURL;
+      viz.toolbar = toolbarPosition;
+      viz.hideTabs = hideTabs;
+
+      // Check screen width and choose appropriate widths to display.
+      if (window.innerWidth > widthThreshold)
+        {
+        // Desktop Layout
+        viz.device='desktop';
+        viz.height=desktopHeight;
+        viz.width=desktopWidth;
+        }
+      else
+        {
+        // Phone Layout
+        viz.device='phone';
+        viz.height=phoneHeight;
+
+        if (fitBrowserPhone == true)
+          {
+          // Set to the browser width-27 (avoids horizontal scrolling).
+           viz.width = window.innerWidth-27;
+          }
+        else
+          {
+          // Set to the static phone layout width.
+          viz.width = phoneWidth;
+          }         
+        }
+
+      // Set the div dimensions to that of the viz in case scrolling is needed.
+      document.getElementById('tableauViz').style.width=viz.width;
+      document.getElementById('tableauViz').style.height=viz.height;
+            
+      document.getElementById("tableauViz").appendChild(viz);
+    </script>
+
+    <!-- Don't set div width and height as we've done that above -->
+    <div>
+      <div id="tableauViz" style="width:1500px; height:2027px; margin: 0 auto;"></div>
+    </div>
+  </body>
+</html>

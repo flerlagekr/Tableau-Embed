@@ -1,0 +1,26 @@
+<!-- 
+Example of an iFrame embed for a dashboard with automatic or ranged sizing.
+By setting the width and height to 100%, the workbook will automatically resize as the screen size changes.
+
+URL
+To get the URL, select the share option then use the link shared there (this can be different than when you simply open a viz).
+Strip out everything after the first "?"
+For example, https://public.tableau.com/views/Regional_16766597857820/GlobalTemperatures?:embed=y&:display_count=n&:origin=viz_share_link becomes...
+             https://public.tableau.com/views/Regional_16766597857820/GlobalTemperatures
+To make responsive, we must add showVizHome=no. The above becomes https://public.tableau.com/views/Regional_16766597857820/GlobalTemperatures?:showVizHome=no
+Then add additional parameters desired, though the defaults are often sufficient.
+Parameters are shown here: https://help.tableau.com/current/pro/desktop/en-us/embed_list.htm
+Parameters would be added to the end of the URL, starting with ?:. All subsequent parameters use &: For example, ?:embed=y&:tabs=no&:toolbar=no
+The resulting URL would be https://public.tableau.com/views/Regional_16766597857820/GlobalTemperatures?:showVizHome=no&:tabs=no&:toolbar=no
+-->
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Responsive iFrame</title>
+  </head>
+
+  <body>
+    <p align="center"><iframe width="100%" height="100%" style="border: 0px;" src="https://public.tableau.com/views/Regional_16766597857820/GlobalTemperatures?:showVizHome=no"></iframe></p>
+  </body>
+</html>

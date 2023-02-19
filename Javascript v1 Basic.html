@@ -1,0 +1,52 @@
+<!-- 
+Example of a basic Javascript (version 1) embed where there is a fixed dashboard size.
+The code inside <body> is basically what you'll get from the Share Embed link on Public, Server, and Cloud.
+This example cleans up some of that code and removes some of the parameters.
+
+WIDTH & HEIGHT
+Set width and height to the dimensions of the dashboard, in pixels.
+If including the toolbar (required in Public), add 27px to the height. If including tabs, add an additional 23px.
+
+URL
+host_url is the root host of Tableau Server, Cloud, or Public. For exacmple, public is https://public.tableau.com/
+To get the workbook "name", select the share option then use the link shared there (this can be different than when you simply open a viz).
+Extract the workbook and sheet name.
+For example, https://public.tableau.com/views/TheWideningDivide/01?:language=en-US&:display_count=n&:origin=viz_share_link becomes...
+             TheWideningDivide/01
+Use this value in the "name" parameter in the first div.
+Individual parameters will have their own line in the div as shown below.
+Parameters are shown here: https://help.tableau.com/current/pro/desktop/en-us/embed_list.htm
+
+To center the embed, use "style='margin: 0 auto;" in the div.
+-->
+<html lang="en">
+  <head>
+  	<meta charset="utf-8">
+	  <title>Basic Javascript v1</title>
+  </head>
+
+  <body>
+    <div class='tableauPlaceholder' id='Embed' style='margin: 0 auto;'>
+      <object class='tableauViz'  style='display:none;'>
+        <param name='host_url' value='https://public.tableau.com/'/>     <!-- Root URL of Tableau Server, Cloud, or Public -->    
+        <param name='name' value='TheWideningDivide/01'/>                <!-- Workbook and sheet -->    
+        <param name='embed_code_version' value='3'/>
+        <param name='site_root' value=''/>
+        <param name='tabs' value='no'/>
+        <param name='toolbar' value='no'/>                               <!-- No impact on Tableau Public -->             
+	    </object>
+    </div>
+
+    <script type='text/javascript'>
+      var divElement = document.getElementById('Embed');
+      var vizElement = divElement.getElementsByTagName('object')[0];
+
+      vizElement.style.width='1500px';                                   // Width of the dashboard.
+      vizElement.style.height='2027px';                                  // Height of the dashboard with toolbar and tab adjustments as detailed above.
+
+      var scriptElement = document.createElement('script');
+      scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+      vizElement.parentNode.insertBefore(scriptElement, vizElement);
+    </script>
+  </body>
+</html>

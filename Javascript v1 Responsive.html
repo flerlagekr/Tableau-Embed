@@ -1,0 +1,46 @@
+<!-- 
+Example of a Javascript (version 1) embed for a dashboard with automatic or ranged sizing.
+By setting the width and height to 100%, the workbook will automatically resize as the screen size changes.
+
+URL
+host_url is the root host of Tableau Server, Cloud, or Public. For exacmple, public is https://public.tableau.com/
+To get the workbook "name", select the share option then use the link shared there (this can be different than when you simply open a viz).
+Extract the workbook and sheet name.
+For example, https://public.tableau.com/views/Regional_16766597857820/GlobalTemperatures?:language=en-US&:display_count=n&:origin=viz_share_link becomes...
+             Regional_16766597857820/GlobalTemperatures
+Use this value in the "name" parameter in the first div.
+Individual parameters will have their own line in the div as shown below.
+Parameters are shown here: https://help.tableau.com/current/pro/desktop/en-us/embed_list.htm
+-->
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+	<title>Responsive Javascript v1</title>
+  </head>
+
+  <body>
+    <div class='tableauPlaceholder' id='Embed' style='margin: 0 auto;'>
+      <object class='tableauViz'  style='display:none;'>
+        <param name='host_url' value='https://public.tableau.com/'/>                <!-- Root URL of Tableau Server, Cloud, or Public -->    
+        <param name='name' value='Regional_16766597857820/GlobalTemperatures'/>     <!-- Workbook and sheet -->    
+        <param name='embed_code_version' value='3'/>
+        <param name='site_root' value=''/>
+        <param name='tabs' value='no'/>
+        <param name='toolbar' value='no'/>                                          <!-- No impact on Tableau Public -->             
+	  </object>
+    </div>
+
+    <script type='text/javascript'>
+      var divElement = document.getElementById('Embed');
+      window.viz = divElement.getElementsByTagName('object')[0];
+
+      viz.style.width='100%';
+      viz.style.height='100%';
+
+      var scriptElement = document.createElement('script');
+      scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+      viz.parentNode.insertBefore(scriptElement, viz);
+    </script>
+  </body>
+</html>

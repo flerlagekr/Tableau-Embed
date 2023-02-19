@@ -1,0 +1,30 @@
+<!-- 
+Example of a simple iFrame embed where there is a fixed dashboard size.
+
+WIDTH & HEIGHT
+Set width and height to the dimensions of the dashboard, in pixels.
+If including the toolbar (required in Public), add 27px to the height. If including tabs, add an additional 23px.
+
+URL
+To get the URL, select the share option then use the link shared there (this can be different than when you simply open a viz).
+Strip out everything after the first "?"
+For example, https://public.tableau.com/views/TheWideningDivide/01?:language=en-US&:display_count=n&:origin=viz_share_link becomes...
+             https://public.tableau.com/views/TheWideningDivide/01
+Then add parameters desired, though the defaults are often sufficient.
+Parameters are shown here: https://help.tableau.com/current/pro/desktop/en-us/embed_list.htm
+Parameters would be added to the end of the URL, starting with ?:. All subsequent parameters use &: For example, ?:embed=y&:tabs=no&:toolbar=no
+The resulting URL would be https://public.tableau.com/views/TheWideningDivide/01?:embed=y&:tabs=no&:toolbar=no
+
+To center the embed, use the <p align="center"> tag.
+-->
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Basic iFrame</title>
+  </head>
+
+  <body>
+    <p align="center"><iframe width="1500px" height="2027px" style="border: 0px;" src="https://public.tableau.com/views/TheWideningDivide/01"></iframe></p>
+  </body>
+</html>

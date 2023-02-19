@@ -1,0 +1,88 @@
+<!-- 
+Example of an Javascript (version 1) embed for a dashboard that uses multiple device layouts. 
+This will use Javascript to choose different widths and heights based on the screen width.
+Device layouts will then automatically kick in and show the proper layout.
+When switching to a new layout, a page refresh is required.
+My experience is that phone and desktop layouts are most common, so this example only addresses those.
+Similar code could be added to address other layouts.
+
+WIDTH & HEIGHT
+Use the variables below to set the dimensions of the different layouts.
+Set width and height to the dimensions of the dashboard, in pixels.
+If including the toolbar (required in Public), add 27px to the height. If including tabs, add an additional 23px.
+
+URL
+host_url is the root host of Tableau Server, Cloud, or Public. For exacmple, public is https://public.tableau.com/
+To get the workbook "name", select the share option then use the link shared there (this can be different than when you simply open a viz).
+Extract the workbook and sheet name.
+For example, https://public.tableau.com/views/FleetwoodMacTheMembersandtheAlbums/FWM?:embed_code_version=3&:embed=y&:loadOrderID=0&:toolbar=n&:display_count=n&:origin=viz_share_link becomes...
+             FleetwoodMacTheMembersandtheAlbums/FWM
+Use this value in the "name" parameter in the first div.
+Individual parameters will have their own line in the div as shown below.
+Parameters are shown here: https://help.tableau.com/current/pro/desktop/en-us/embed_list.htm
+
+To center the embed, use "style='margin: 0 auto;" in the div.
+-->
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Javascript v1 with Device Layouts</title>
+  </head>
+
+  <body>
+    <div class='tableauPlaceholder' id='Embed' style='margin: 0 auto;'>
+		<object class='tableauViz'  style='display:none;'>
+		  <param name='host_url' value='https://public.tableau.com/'/>            <!-- Root URL of Tableau Server, Cloud, or Public -->    
+		  <param name='name' value='FleetwoodMacTheMembersandtheAlbums/FWM'/>     <!-- Workbook and sheet -->    
+		  <param name='embed_code_version' value='3'/>
+		  <param name='site_root' value=''/>
+		  <param name='tabs' value='no'/>
+		  <param name='toolbar' value='no'/>                                      <!-- No impact on Tableau Public -->             
+		</object>
+	  </div>	
+
+    <script type='text/javascript'>
+
+      // Variables for controling the functionality. 
+      const widthThreshold   = 600;                  // Threshold at which we'll swtich from phont to desktop or vice versa.
+      const fitBrowserPhone  = true;                 // On phone layout, should the width expand to the browser or use a set width.
+      const desktopWidth     = '1100px';             // Width for desktop layout.
+      const desktopHeight    = '1627px';             // Height for desktop layout with toolbar and tab adjustments as detailed above.
+      const phoneWidth       = '375px';              // Width for phone layout (if we are not auto-fitting to the browser).
+      const phoneHeight      = '872px';              // Height for the phone layout with toolbar and tab adjustments as detailed above.
+      const toolbarPosition  = "bottom"              // Position of the toolbar. Options are bottom, top, hidden. Hidden not available on Tableau Public
+
+      var divElement = document.getElementById('Embed');
+      var viz = divElement.getElementsByTagName('object')[0];
+
+	  // Check screen width and choose appropriate widths to display.
+      if ( divElement.offsetWidth > widthThreshold )
+        {
+        // Non-mobile width and height (just dashboard sizes).
+        viz.style.width=desktopWidth;
+        viz.style.height=desktopHeight;
+        }
+      else
+        {
+        // Mobile width and height.
+		if (fitBrowserPhone == true)
+                {
+                // Set to 100%).
+                viz.style.width = "100%"
+                }
+            else
+                {
+                // Set to the static phone layout width.
+                viz.style.width = phoneWidth;
+                }  		
+
+	    viz.style.height=phoneHeight;
+        }
+
+      var scriptElement = document.createElement('script');
+      scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+      viz.parentNode.insertBefore(scriptElement, viz);
+    </script>
+   </body>
+</html>

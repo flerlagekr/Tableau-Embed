@@ -1,0 +1,41 @@
+<!-- 
+Example of a basic Javascript (version 1) embed where there is a fixed dashboard size.
+The code inside <body> is basically what you'll get from the Share Embed link on Public, Server, and Cloud.
+This example cleans up some of that code and removes some of the parameters.
+
+WIDTH & HEIGHT
+Set width and height, within the initial div statement, to the dimensions of the dashboard, in pixels.
+If including the toolbar (required in Public), add 27px to the height. If including tabs, add an additional 23px.
+
+URL
+To get the URL, select the share option then use the link shared there (this can be different than when you simply open a viz).
+Strip out everything after the first "?"
+For example, https://public.tableau.com/views/TheWideningDivide/01?:language=en-US&:display_count=n&:origin=viz_share_link becomes...
+             https://public.tableau.com/views/TheWideningDivide/01
+Individual parameters will have their own line in the div as shown below.
+Parameters are shown here: https://help.tableau.com/current/api/embedding_api/en-us/docs/embedding_api_configure.html#table-of-properties-and-values-for-embedded-objects-and-components
+
+To center the embed, use "style='margin: 0 auto;" in the div.
+-->
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Javascript v3 Basic</title>
+    <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.js"></script>
+  </head>
+
+  <body>
+    <!-- Use the witdh and height of the dashboard, with toolbar and tab adjustments as detailed above. -->
+    <div style="width:1500px; height:2027px; margin: 0 auto;">
+      <tableau-viz 
+        id="tableauViz" 
+        src="https://public.tableau.com/views/TheWideningDivide/01"
+        tabs="none"
+        toolbar="bottom"
+        hide-tabs="true"
+        >
+      </tableau-viz>
+    </div>
+  </body>
+</html>
