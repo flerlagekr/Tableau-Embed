@@ -33,18 +33,17 @@ To center the embed, use "style='margin: 0 auto;" in the div.
   <body>
     <!-- Begin embed code -->
     <div class='tableauPlaceholder' id='Embed' style='margin: 0 auto;'>
-		<object class='tableauViz'  style='display:none;'>
-		  <param name='host_url' value='https://public.tableau.com/'/>            <!-- Root URL of Tableau Server, Cloud, or Public -->    
-		  <param name='name' value='FleetwoodMacTheMembersandtheAlbums/FWM'/>     <!-- Workbook and sheet -->    
-		  <param name='embed_code_version' value='3'/>
-		  <param name='site_root' value=''/>
-		  <param name='tabs' value='no'/>
-		  <param name='toolbar' value='no'/>                                      <!-- No impact on Tableau Public -->             
-		</object>
-	  </div>	
+      <object class='tableauViz'  style='display:none;'>
+        <param name='host_url' value='https://public.tableau.com/'/>            <!-- Root URL of Tableau Server, Cloud, or Public -->    
+        <param name='name' value='FleetwoodMacTheMembersandtheAlbums/FWM'/>     <!-- Workbook and sheet -->    
+        <param name='embed_code_version' value='3'/>
+        <param name='site_root' value=''/>
+        <param name='tabs' value='no'/>
+        <param name='toolbar' value='no'/>                                      <!-- No impact on Tableau Public -->             
+      </object>
+    </div>	
 
     <script type='text/javascript'>
-
       // Variables for controling the functionality. 
       const widthThreshold   = 600;                  // Threshold at which we'll swtich from phont to desktop or vice versa.
       const fitBrowserPhone  = true;                 // On phone layout, should the width expand to the browser or use a set width.
@@ -57,7 +56,7 @@ To center the embed, use "style='margin: 0 auto;" in the div.
       var divElement = document.getElementById('Embed');
       var viz = divElement.getElementsByTagName('object')[0];
 
-	  // Check screen width and choose appropriate widths to display.
+      // Check screen width and choose appropriate widths to display.
       if ( divElement.offsetWidth > widthThreshold )
         {
         // Non-mobile width and height (just dashboard sizes).
@@ -67,7 +66,7 @@ To center the embed, use "style='margin: 0 auto;" in the div.
       else
         {
         // Mobile width and height.
-		    if (fitBrowserPhone == true)
+        if (fitBrowserPhone == true)
           {
           // Set to 100%).
           viz.style.width = "100%"
@@ -78,7 +77,7 @@ To center the embed, use "style='margin: 0 auto;" in the div.
           viz.style.width = phoneWidth;
           }  		
 
-	    viz.style.height=phoneHeight;
+        viz.style.height=phoneHeight;
         }
 
       var scriptElement = document.createElement('script');
@@ -86,5 +85,5 @@ To center the embed, use "style='margin: 0 auto;" in the div.
       viz.parentNode.insertBefore(scriptElement, viz);
     </script>
     <!-- End embed code -->
-   </body>
+  </body>
 </html>
