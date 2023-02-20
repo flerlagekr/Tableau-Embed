@@ -49,12 +49,13 @@ To center the embed, use "style='margin: 0 auto;" in the div.
       import { TableauViz } from "https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.js";
 
       // Variables for controling the functionality. 
+      // Using "window." on some of these essentially makes them global so that they can be used in scripts outside of this module.
       const vizURL = "https://public.tableau.com/views/Regional_16766597857820/GlobalTemperatures"
       const toolbarPosition  = "bottom"              // Position of the toolbar. Options are bottom, top, hidden. Hidden not available on Tableau Public
       const hideTabs         = true;                 // Hide the tabs?
-
-      // By using "window.", we're essentially making this global so that scripts outside of this module can use it.
       window.minHeight = 0;                          // Minimum height of the viz. Defaulting to 0 since v3 handles this better.
+
+      // Create the Tableau viz, making it global so the refresh script can use it.
       window.viz = new TableauViz();
 
       viz.src = vizURL;
