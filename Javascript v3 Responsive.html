@@ -1,6 +1,7 @@
 <!-- 
 Example of a Javascript (version 3) embed for a dashboard with automatic or ranged sizing.
-The Javascrip code will identify the window size then adjust the content to fit nicely.
+The Javascript code will identify the window size then adjust the content to fit nicely.
+Version 3 handles the min height better than iFrames and version 2, but feel free to set a minHeight below.
 
 URL
 To get the URL, select the share option then use the link shared there (this can be different than when you simply open a viz).
@@ -15,7 +16,7 @@ To center the embed, use "style='margin: 0 auto;" in the div.
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
-    <title>Responsive Javascript v2</title>
+    <title>Responsive Javascript v3</title>
   </head>
 
   <body>  
@@ -25,8 +26,17 @@ To center the embed, use "style='margin: 0 auto;" in the div.
 
       // Resize the workbook appropriately without the need for refreshing.
       function vizResize() {
-        viz.width = window.innerWidth-27;
-        viz.height = window.innerHeight-27;
+        vizWidth = window.innerWidth-27;
+        vizHeight = window.innerHeight-27;
+
+        // Deal with minimum allowable height.
+        if ( vizHeight < minHeight )
+          {
+          vizHeight = minHeight;  
+          }
+
+        viz.width = vizWidth;
+        viz.height = vizHeight;        
 
         // Set the div dimensions to that of the viz in case scrolling is needed.
         document.getElementById('tableauViz').style.width=viz.width;
@@ -43,14 +53,24 @@ To center the embed, use "style='margin: 0 auto;" in the div.
       const hideTabs         = true;                 // Hide the tabs?
 
       // By using "window.", we're essentially making this global so that scripts outside of this module can use it.
+      window.minHeight = 0;                          // Minimum height of the viz. Defaulting to 0 since v3 handles this better.
       window.viz = new TableauViz();
 
       viz.src = vizURL;
       viz.toolbar = toolbarPosition;
       viz.hideTabs = hideTabs;
 
-      viz.width = window.innerWidth-27;
-      viz.height = window.innerHeight-27;
+      var vizWidth = window.innerWidth-27;
+      var vizHeight = window.innerHeight-27;
+
+      // Deal with minimum allowable height.
+      if ( vizHeight < minHeight )
+        {
+        vizHeight = minHeight;  
+        }
+
+      viz.width = vizWidth;
+      viz.height = vizHeight;
 
       // Set the div dimensions to that of the viz in case scrolling is needed.
       document.getElementById('tableauViz').style.width=viz.width;
