@@ -57,22 +57,18 @@ To center the embed, use "style='margin: 0 auto;" in the div.
       var viz = divElement.getElementsByTagName('object')[0];
 
       // Check screen width and choose appropriate widths to display.
-      if ( divElement.offsetWidth > widthThreshold )
-        {
+      if ( divElement.offsetWidth > widthThreshold ) {
         // Non-mobile width and height (just dashboard sizes).
         viz.style.width=desktopWidth;
         viz.style.height=desktopHeight;
         }
-      else
-        {
+      else {
         // Mobile width and height.
-        if (fitBrowserPhone == true)
-          {
+        if (fitBrowserPhone == true) {
           // Set to 100%).
           viz.style.width = "100%"
           }
-        else
-          {
+        else {
           // Set to the static phone layout width.
           viz.style.width = phoneWidth;
           }  		
