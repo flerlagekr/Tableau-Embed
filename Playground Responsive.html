@@ -1,12 +1,8 @@
 <!-- 
-Example of using the Embedding Playground to embed a fixed dashboard size.
+Example of using the Embedding Playground for a dashboard with automatic or ranged sizing.
 
-The Embedding Playground does not yet allow you to center content on the page.
-To center the embed, add a div around the tableau-viz section (lines 20 and 28).
-The max-width should be the width of the dashboard.
-
-The Embedding Playground also does not allow you to specify the title of the html page.
-To change the title, edit the text within the title tags (line 17 below).
+The Embedding Playground  does not allow you to specify the title of the html page.
+To change the title, edit the text within the title tags (line 13 below).
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -14,18 +10,16 @@ To change the title, edit the text within the title tags (line 17 below).
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Playground Basic</title>
+    <title>Playground Responsive</title>
   </head>
   <body>
-    <div style="max-width:1500px; margin: auto;">                     <!-- Add this div to center the content -->
-      <tableau-viz
-        src="https://public.tableau.com/views/TheWideningDivide/01"
-        device="desktop"
-        hide-tabs
-        toolbar="bottom"
-      >
-      </tableau-viz>
-    </div>                                                            <!-- End of the div for centering the content -->
+    <tableau-viz
+      src="https://public.tableau.com/views/Regional_16766597857820/GlobalTemperatures"
+      device="default"
+      hide-tabs
+      toolbar="bottom"
+    >
+    </tableau-viz>
     <script type="module">
       import { TableauEventType } from 'https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.js';
       (async () => {

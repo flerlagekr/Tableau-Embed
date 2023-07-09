@@ -1,9 +1,9 @@
 <!-- 
-Example of using the Embedding Playground to embed a fixed dashboard size.
+Example of using the Embedding Playground to embed a dashboard using device layouts.
 
 The Embedding Playground does not yet allow you to center content on the page.
 To center the embed, add a div around the tableau-viz section (lines 20 and 28).
-The max-width should be the width of the dashboard.
+The max-width should be the largest possible width of the dashboard (typically the width of the desktop layout).
 
 The Embedding Playground also does not allow you to specify the title of the html page.
 To change the title, edit the text within the title tags (line 17 below).
@@ -14,13 +14,13 @@ To change the title, edit the text within the title tags (line 17 below).
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Playground Basic</title>
+    <title>Playground with Device Layouts</title>
   </head>
   <body>
-    <div style="max-width:1500px; margin: auto;">                     <!-- Add this div to center the content -->
+    <div style="max-width:1100px; margin: auto;">                     <!-- Add this div to center the content -->
       <tableau-viz
-        src="https://public.tableau.com/views/TheWideningDivide/01"
-        device="desktop"
+        src="https://public.tableau.com/views/FleetwoodMacTheMembersandtheAlbums/FWM"
+        device="default"
         hide-tabs
         toolbar="bottom"
       >
