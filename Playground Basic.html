@@ -1,0 +1,58 @@
+<!-- 
+Example of using the Embedding Playground to embed a fixed dashboard size.
+
+The Embedding Playground does not yet allow you to center content on the page.
+To center the embed, add a div around the tableau-viz section (lines 20 and 28).
+The width should be the width of the dashboard.
+
+The Embedding Playground also does not allow you to specify the title of the html page.
+To change the title, edit the text within the title tags (line 17 below).
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playground Basic</title>
+  </head>
+  <body>
+    <div style="width:1500px; margin: 0 auto;">                       <!-- Add this div to center the content -->
+      <tableau-viz
+        src="https://public.tableau.com/views/TheWideningDivide/01"
+        device="desktop"
+        hide-tabs
+        toolbar="bottom"
+      >
+      </tableau-viz>
+    </div>                                                            <!-- End of the div for centering the content -->
+    <script type="module">
+      import { TableauEventType } from 'https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.js';
+      (async () => {
+        // Get the viz object from the HTML web component
+        const viz = document.querySelector('tableau-viz, tableau-authoring-viz');
+
+        // The value of the token variable is generated and available when this code executes in the playground.
+        // You will have to generate this token. See CA documentation- https://sfdc.co/chGcg5.
+        viz.token = window.token;
+
+        // Wait for the viz to become interactive
+        await new Promise((resolve, reject) => {
+          // Add an event listener to verify the viz becomes interactive
+          viz.addEventListener(TableauEventType.FirstInteractive, () => {
+            console.log('Viz is interactive!');
+            resolve();
+          });
+
+          viz.addEventListener(TableauEventType.VizLoadError, (error) => {
+            const message = JSON.parse(error.detail.message);
+            const errorMessage = JSON.parse(message.errorMessage);
+
+            const displayMessage = `ca-error-${errorMessage.result.errors[0].code}`;
+            reject(displayMessage);
+          });
+        });
+      })();
+    </script>  
+  </body>
+</html>
